@@ -1168,16 +1168,12 @@
           </figure>
         </section>
 
-
         <section class="contact-form">
-
           <h3 class="h3 form-title">Contact Form</h3>
 
-          <form action="#" class="form" data-form>
-
+          <form id="contactForm" method="POST" class="form" data-form>
             <div class="input-wrapper">
               <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
               <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
             </div>
 
@@ -1187,12 +1183,50 @@
               <ion-icon name="paper-plane"></ion-icon>
               <span>Send Message</span>
             </button>
-
           </form>
-
         </section>
 
       </article>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const form = document.getElementById('contactForm');
+          const submitButton = form.querySelector('[data-form-btn]');
+          const formInputs = form.querySelectorAll('[data-form-input]');
+
+          // Enable the submit button if all inputs are filled
+          formInputs.forEach(input => {
+            input.addEventListener('input', function() {
+              const allFilled = Array.from(formInputs).every(input => input.value.trim() !== '');
+              submitButton.disabled = !allFilled;
+            });
+          });
+
+          // Handle form submission via AJAX
+          form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch('https://formspree.io/f/meojdwjj', {
+              method: 'POST',
+              body: formData
+            })
+                    .then(() => {
+                      // Clear the form fields after submission
+                      form.reset();
+                    })
+                    .catch(error => {
+                      console.error('Error:', error);
+                      // Clear the form fields even if there's an error
+                      form.reset();
+                      // Optionally, show an error message to the user
+                      // alert('There was a problem with your submission. Please try again.');
+                    });
+          });
+        });
+      </script>
+
 
     </div>
 
