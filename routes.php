@@ -1,7 +1,7 @@
 <?php
 
 $frontend_routes = [
-    'portfolio' => '/Professional_Portfolio/view/index.php',
+    'portfolio' => '/view/index.php',
 
 
 ];
