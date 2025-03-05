@@ -94,6 +94,14 @@
             transform: rotate(-5deg);
         }
 
+        /* Disabling Printing option for Safety */
+        @media print {
+            body {
+                display: none !important;
+            }
+        }
+
+
 
     </style>
 </head>
@@ -175,7 +183,7 @@
                     <div class="contact-info">
                         <p class="contact-title">Birthday</p>
 
-                        <time datetime="1982-06-23">October 20, 2001</time>
+                        <time datetime="1982-06-23">Somewhere in 2001</time>
                     </div>
 
                 </li>
@@ -189,7 +197,7 @@
                     <div class="contact-info">
                         <p class="contact-title">Location</p>
 
-                        <address>East Rampura, Dhaka, Bangladesh</address>
+                        <address>Dhaka, Bangladesh</address>
                     </div>
 
                 </li>
@@ -213,8 +221,8 @@
                 </li>
 
                 <li class="social-item">
-                    <a href="https://www.figma.com/@om35" class="social-link">
-                        <ion-icon name="logo-figma"></ion-icon>
+                    <a href="javascript:void(0);" class="social-link" onclick="showCVDownloadPopup()" title="CV">
+                        <ion-icon name="document-text"></ion-icon>
                     </a>
                 </li>
 
@@ -1732,28 +1740,27 @@
     <li onclick="history.back()"><i class="fas fa-arrow-left"></i> Back</li>
     <li onclick="history.forward()"><i class="fas fa-arrow-right"></i> Forward</li>
     <li onclick="location.reload()"><i class="fas fa-sync-alt"></i> Reload</li>
-    <li onclick="window.print()"><i class="fas fa-print"></i> Print...</li>
 </ul>
 
 
 <script>
+
     // Prevent default right-click menu and show a custom menu
-    document.addEventListener("contextmenu", (event) => {
+    function showCustomMenu(event) {
         event.preventDefault(); // Disable default right-click menu
 
         const menu = document.getElementById("customMenu");
         menu.style.display = "block";
         menu.style.left = `${event.pageX}px`;
         menu.style.top = `${event.pageY}px`;
-    });
+    }
 
-    // Hide the custom menu when clicking anywhere else
-    document.addEventListener("click", () => {
+    function hideCustomMenu() {
         document.getElementById("customMenu").style.display = "none";
-    });
+    }
 
     // Disable keyboard shortcuts for Inspect and View Source
-    document.addEventListener("keydown", (event) => {
+    function disableDevTools(event) {
         if (
             event.key === "F12" ||
             (event.ctrlKey && ["U", "S", "P"].includes(event.key)) ||
@@ -1761,8 +1768,157 @@
         ) {
             event.preventDefault();
         }
+    }
+
+    // Disable Copy to Clipboard functionality
+    function disableCopy(event) {
+        event.preventDefault(); // Prevent default copy action
+
+        const customText = "⚠📜 This content is protected. Reach out if you need access.";
+        navigator.clipboard.writeText(customText).then(() => {
+            console.log("Clipboard successfully modified!");
+        }).catch(err => {
+            console.error("Failed to modify clipboard", err);
+        });
+    }
+
+    // Disable Right-Click, Print Screen & Basic Screenshots (Partial Protection)
+    function disableScreenshot(event) {
+        // Block PrintScreen key
+        if (event.key === "PrintScreen") {
+            event.preventDefault();
+            // alert("📸 Screenshots are disabled on this page!");
+        }
+
+        // Attempt to block Windows + Shift + S (Limited due to browser restrictions)
+        if (event.metaKey && event.shiftKey && event.key.toLowerCase() === "s") {
+            event.preventDefault();
+            // alert("🚫 Screen capture is blocked!");
+        }
+    }
+
+    // Attach event listener for screenshot blocking
+    document.addEventListener("keydown", disableScreenshot);
+
+    // Block Screen Recording via getDisplayMedia
+    if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+        navigator.mediaDevices.getDisplayMedia = function() {
+            // alert("🚫 Screen recording is disabled!");
+            return Promise.reject(new Error("Screen recording blocked"));
+        };
+    }
+
+    // Detect Screenshot Key and Temporarily Hide Content
+    document.addEventListener("keyup", function (event) {
+        if (event.key === "PrintScreen") {
+            document.body.style.display = "none";
+            setTimeout(() => document.body.style.display = "block", 3000);
+            // alert("🛑 Screenshot detected! Screen will refresh...");
+        }
     });
+
+    // Detect Window Resize (Possible Snipping Tool Activation)
+    window.addEventListener("resize", function () {
+        if (window.outerHeight - window.innerHeight > 100 || window.outerWidth - window.innerWidth > 100) {
+            // alert("⚠️ Screenshot tool detected! Disabling content visibility.");
+            document.body.style.display = "none";
+            setTimeout(() => document.body.style.display = "block", 3000);
+        }
+    });
+
+    // Detect Fullscreen Exit (Possible Screenshot Attempt)
+    document.addEventListener("fullscreenchange", function () {
+        if (!document.fullscreenElement) {
+            // alert("🚫 Screen capture attempt detected!");
+            document.body.style.display = "none";
+            setTimeout(() => document.body.style.display = "block", 3000);
+        }
+    });
+
+
+    // Prevent Screen Recording & Virtual Machines (Advanced)
+    function blockScreenRecording() {
+        navigator.mediaDevices.getDisplayMedia = function() {
+            // alert("🚫 Screen recording is disabled!");
+            return Promise.reject(new Error("Screen capture blocked"));
+        };
+    }
+
+    // Detect & Block Third-Party Recording Software (Hard Mode)
+    function detectScreenRecording() {
+        setInterval(() => {
+            if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                // alert("⚠️ Screen recording detected! Please disable screen recording software.");
+            }
+        }, 1000);
+    }
+
+    // Disable Printing (Ctrl + P & Right-Click Print) and Ctrl + S
+    function disablePrinting(event) {
+        if ((event.ctrlKey && event.key === "p") || (event.ctrlKey && event.key === "s")) {
+            event.preventDefault();
+            // alert("🛑 This action is disabled on this page!");
+        }
+    }
+
+    function handleBeforePrint(event) {
+        // alert("🚫 Printing is restricted!");
+        event.preventDefault();
+    }
+
+    // Setup Event Listeners
+    function setupEventListeners() {
+        document.addEventListener("contextmenu", showCustomMenu);
+        document.addEventListener("click", hideCustomMenu);
+        document.addEventListener("keydown", disableDevTools);
+        document.addEventListener("copy", disableCopy);
+        document.addEventListener("keydown", disableScreenshot);
+        document.addEventListener("keydown", disablePrinting);
+        window.addEventListener("beforeprint", handleBeforePrint);
+    }
+
+    // Initialize all protection mechanisms
+    function initializeProtection() {
+        setupEventListeners();
+        blockScreenRecording();
+        detectScreenRecording();
+    }
+
+    // Run the initialization function
+    initializeProtection();
+
+
+
+
 </script>
+
+<!-- Popup Modal for CV Download -->
+<div id="cvPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); padding:30px 40px; background-color:#1e1e1f; border-radius:10px; box-shadow:0 4px 8px rgba(0, 0, 0, 0.3); color:white; z-index:1000; width: 400px; text-align:center;">
+    <!-- Close Icon in the top-right corner -->
+    <span onclick="closeCVPopup()" style="position:absolute; top:10px; right:15px; font-size:24px; color:rgb(159, 159, 159); cursor:pointer;">&times;</span>
+
+    <h3 style="color: rgb(253, 217, 111); margin-bottom: 20px;">Download My CV</h3>
+    <p style="color:#bdc3c7; margin-bottom: 20px;">Click the button below to download my CV in PDF format.</p>
+    <a href="./assets/files/CV_Sudipta_Kumar_Das.pdf" download="CV_Sudipta Kumar Das" style="padding:12px 30px; background-color: rgb(253, 217, 111); color:white; text-decoration:none; border-radius:5px; font-weight:bold; display:block; margin-bottom:20px;">Download CV</a>
+</div>
+
+<!-- Background Overlay for Modal -->
+<div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.5); z-index:999;"></div>
+
+<script>
+    // Function to show the CV download popup
+    function showCVDownloadPopup() {
+        document.getElementById('cvPopup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    // Function to close the CV download popup
+    function closeCVPopup() {
+        document.getElementById('cvPopup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+</script>
+
 
 
 </body>
