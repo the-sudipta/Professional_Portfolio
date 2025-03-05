@@ -451,8 +451,11 @@
                 <ul class="clients-list has-scrollbar">
 
                     <li class="clients-item">
-                        <a href="#">
+                        <a href="https://teamprogramee.blogspot.com/">
                             <img src="./assets/images/Programee.png" height="131" width="95"  alt="client logo">
+                        </a>
+                        <a href="https://the-sudipta.github.io/F_T_Associate_Law_Firm/">
+                            <img src="./assets/images/ft_associate.png" height="131" width="95"  alt="client logo">
                         </a>
                     </li>
 
@@ -581,17 +584,34 @@
 
                     <li class="timeline-item">
 
-                        <h4 class="h4 timeline-item-title">Software Engineer</h4>
+                        <h4 class="h4 timeline-item-title">Senior Web Developer</h4>
 
-                        <span>June 2024 — Present</span>
+                        <span>Feb. 2023 — Present</span>
 
                         <p class="timeline-text">
-                            Currently working remotely at Boreal Software Company as a Software Engineer.
-                            My responsibilities include developing the backend of client-requested projects,
+                            Currently working remotely at Programee as a Senior Web Developer.
+                            My responsibilities include developing the fullstack or backend of client-requested projects,
                             creating detailed project timelines and outlines, and leading a team to ensure
-                            successful project delivery. This role has strengthened my backend development
+                            successful project delivery. This role has strengthened my backend and fullstack development
                             expertise, project management skills, and ability to collaborate with teams to
                             meet client expectations.
+                        </p>
+
+                    </li>
+
+                    <li class="timeline-item">
+
+                        <h4 class="h4 timeline-item-title"> F T Associate (Law Firm) Website Development</h4>
+
+                        <span>Feb. 2025 - Feb. 2025</span>
+
+                        <p class="timeline-text">
+                            In February 2025, I independently developed a fully functional static website for F T Associate,
+                            a law firm. Leveraging HTML, CSS, and JavaScript, I transformed design concepts into a responsive,
+                            user-friendly online presence while managing the project from initial planning to final deployment.
+                            This hands-on experience not only refined my front-end development skills but also enhanced my
+                            ability to deliver quality work under tight deadlines, ensuring that the website effectively
+                            met client expectations in a real-world business environment.
                         </p>
 
                     </li>
