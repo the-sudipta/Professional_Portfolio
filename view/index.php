@@ -30,6 +30,72 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <style>
+        /*    CSS for Custom Right Click menu    */
+
+        /* Custom right-click menu */
+        .custom-menu {
+            display: none;
+            position: absolute;
+            background: var(--eerie-black-2);
+            border: 1px solid var(--jet);
+            box-shadow: var(--shadow-3);
+            padding: 8px 0;
+            list-style: none;
+            width: 220px;
+            border-radius: 12px;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .custom-menu li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            cursor: pointer;
+            font-family: var(--ff-poppins);
+            font-size: var(--fs-6);
+            font-weight: var(--fw-400);
+            color: var(--white-2);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+            transition: background var(--transition-1), color var(--transition-1), transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border-radius: 8px;
+        }
+
+        .custom-menu li i {
+            font-size: 16px;
+            color: var(--orange-yellow-crayola);
+            transition: color var(--transition-1);
+        }
+
+        /* ✨ Enhanced Multi-Gradient Hover Effect ✨ */
+        .custom-menu li:hover {
+            background: linear-gradient(135deg,
+            var(--smoky-black) 20%,
+            var(--eerie-black-1) 40%,
+            var(--vegas-gold) 80%,
+            var(--orange-yellow-crayola) 100%);
+            color: var(--white-1);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 223, 120, 0.6);
+        }
+
+        .custom-menu li:hover i {
+            color: var(--white-1);
+            transform: rotate(-5deg);
+        }
+
+
+    </style>
 </head>
 
 <body>
@@ -1659,6 +1725,45 @@
 -->
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+<!-- Custom Right-Click Menu -->
+<ul class="custom-menu" id="customMenu">
+    <li onclick="history.back()"><i class="fas fa-arrow-left"></i> Back</li>
+    <li onclick="history.forward()"><i class="fas fa-arrow-right"></i> Forward</li>
+    <li onclick="location.reload()"><i class="fas fa-sync-alt"></i> Reload</li>
+    <li onclick="window.print()"><i class="fas fa-print"></i> Print...</li>
+</ul>
+
+
+<script>
+    // Prevent default right-click menu and show a custom menu
+    document.addEventListener("contextmenu", (event) => {
+        event.preventDefault(); // Disable default right-click menu
+
+        const menu = document.getElementById("customMenu");
+        menu.style.display = "block";
+        menu.style.left = `${event.pageX}px`;
+        menu.style.top = `${event.pageY}px`;
+    });
+
+    // Hide the custom menu when clicking anywhere else
+    document.addEventListener("click", () => {
+        document.getElementById("customMenu").style.display = "none";
+    });
+
+    // Disable keyboard shortcuts for Inspect and View Source
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.key === "F12" ||
+            (event.ctrlKey && ["U", "S", "P"].includes(event.key)) ||
+            (event.ctrlKey && event.shiftKey && ["I", "J", "C"].includes(event.key))
+        ) {
+            event.preventDefault();
+        }
+    });
+</script>
+
 
 </body>
 
