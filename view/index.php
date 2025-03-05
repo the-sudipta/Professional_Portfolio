@@ -454,16 +454,13 @@
                         <a href="https://teamprogramee.blogspot.com/">
                             <img src="./assets/images/Programee.png" height="131" width="95"  alt="client logo">
                         </a>
-                        <a href="https://the-sudipta.github.io/F_T_Associate_Law_Firm/">
-                            <img src="./assets/images/ft_associate.png" height="131" width="95"  alt="client logo">
-                        </a>
                     </li>
 
-                    <!--            <li class="clients-item">-->
-                    <!--              <a href="#">-->
-                    <!--                <img src="./assets/images/logo-2-color.png" alt="client logo">-->
-                    <!--              </a>-->
-                    <!--            </li>-->
+                    <li class="clients-item">
+                        <a href="https://the-sudipta.github.io/F_T_Associate_Law_Firm/">
+                            <img src="./assets/images/ft_associate.png" alt="client logo">
+                        </a>
+                    </li>
 
                     <!--            <li class="clients-item">-->
                     <!--              <a href="#">-->
