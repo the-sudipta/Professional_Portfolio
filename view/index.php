@@ -458,7 +458,7 @@
 
                     <li class="clients-item">
                         <a href="https://the-sudipta.github.io/F_T_Associate_Law_Firm/">
-                            <img src="./assets/images/ft_associate.png" alt="client logo">
+                            <img src="./assets/images/ft_associate.png" height="131" width="95" alt="client logo">
                         </a>
                     </li>
 
